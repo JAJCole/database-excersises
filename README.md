@@ -13,3 +13,4 @@
 # Data types within SQL cont. : char (fixed link), varchar (variable length), text (advised for blocks over 255 characters. in general try and avoid >255 characters)
 # Every table requires a unique value as a primary key. often numerically ordered (1,2,3,ect) the characters have to be unique, meaning no repeating values. this can be done with the AUTO_INCREMENT command
 # 
+# SELECT statements can do things such as math (SELECT 2+2) 
