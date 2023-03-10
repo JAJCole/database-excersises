@@ -14,3 +14,16 @@
 # Every table requires a unique value as a primary key. often numerically ordered (1,2,3,ect) the characters have to be unique, meaning no repeating values. this can be done with the AUTO_INCREMENT command
 # 
 # SELECT statements can do things such as math (SELECT 2+2) 
+# 
+# statement recap:
+-- show databases and tables:     SHOW databases;     SHOW tables;
+-- show creation syntax:   show create databse *name*;         show create table *name*;
+-- see what current database is selected:         select database;
+-- specify what db to use:     use *name*;
+-- SELECT (which colums to use)  -- FROM (which table to use)   -- WHERE (how to filter)
+example: Show categories for only supergroup one and rename: STEPS BELOW:
+1. write query and run (SELECT * FROM *name*)
+2. use WHERE to filter
+3. use SELECT again and enter in the columns that you want
+# reminder to rename use SELECT *name* as *new name* from *name* where *category* = '*query*'
+# 
