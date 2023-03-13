@@ -212,3 +212,87 @@ having sum_quant > 100
 order by item_name
 limit 5 -- gives top 5 results. not necc for prompt but good for brevity and process speed
 ;
+
+# MYSQL INDEXS
+# Primary keys necc. they are the index
+# primary keys cannot be null
+# primary keys must be unique. often the autoincrement function is used for this purpose
+# foreign keys are keys from different tables, used to 'link up tables'. useful in joining non related tables
+# Foreign keys can be any arbitrary amount to link as many tables as you want
+# Within the MYSQL gui the left most column has drop down menus for databases and tables to give details on the contents of the table, like what is a unique key, a varchar ect
+# Without using the gui you may use SHOW CREATE TABLE *name*;, then copy the output result line and paste
+# the DESCRIBE function also lists the respective key descriptions of a table within the database in use
+# DESCRIBE *name*;
+# To get more description from describe you can SHOW CREATE TABLE *name*; copy field/paste and assess
+# 
+# the syntax of JOIN statements in SQL:
+# inner join is the overlap of the venn diagram -- deletes null values and keeps only matched instances. most commonly used
+# left join covers overlap and left  -- useful for not deleting unmatched instances. Want to keep all on 'left side' but dont care if the 'right side' gets deleted
+# right join covers overlap and right -- useful like left, but the opposite. keeping 'right side' and deleting unmatched 'left side'
+# outer join encompasses both left right and overlap -- not available in mysql. UNION is the function analog for MYSQL for outer join. This variation grabs and keeps both left and ride as well as their matched intersection. likely not used much. 'I want everything and I dont care if it matches'
+# the UNION syntax is creating a left join and typing UNION between a seperate right join statement
+# 
+# Understand that the decision of what joins to use depends on the query youre after. standard format is 1:1, however 1:many is possible. 1:1 like emp_id to employee, or 1:many like employees to department, or many:many which connects tables sharing links
+# Remember also join statements come after the from statement
+select *names*
+from *name*
+join *other_name* on *name*.*shared_primary_key* = *thing_getting_joined*.*shared_primary_key*
+
+SELECT columns
+FROM table_a as A
+JOIN table_b as B ON A.id = B.fk_id;
+# Below is the above in plain english
+FROM table_name as alias
+join table_name as alias on alias_table_1.column_shared = alias_table_2.column_shared
+
+# order is arbitrary, but if shared column exists
+
+EXAMPLE: 
+select *
+from employees
+JOIN dept_no ON employees.emp_no = dept_emp.emp_no
+# the above example returns matched values from left and right
+# the above example, were you to say LEFT JOIN rather than JOIN it would return all employees, even if unmatched or empty fields in the right
+# the above example, were you to say RIGHT JOIN it would drop employees with unmatched values but return all subfields in the right
+# 
+# When filtering your select for a join, use syntax:
+select employees.first_name,
+       employees.last_name, 
+       departments.dept_name
+from employees
+join dept_emp on employees.emp_no = dept_emp.emp_no
+join departments on dept_emp.dept_no = departments.dept_no
+# you may also include aliases to save time from typing:
+select e.first_name,
+       e.last_name, 
+       de.dept_name
+from employees as e
+join dept_emp as de on e.emp_no = de.emp_no
+join departments as d on de.dept_no = d.dept_no;
+# adding filter conditionals would look like:
+select e.first_name,
+       e.last_name, 
+       de.dept_name
+       e.gender
+from employees as e
+join dept_emp as de on e.emp_no = de.emp_no
+join departments as d on de.dept_no = d.dept_no
+where e.gender = 'F'; 
+
+# additional joining methods: *if they share the same primary key*
+select *
+from employees
+join dept_emp using(emp_no)
+# the above is not as explicit as it could be. will break if not exact match and no discrepancy. likely not useful for many cases
+
+# 
+-- AS A NOTE --
+you can use an entire query from select on, and use in a second query the syntax WHERE EXISTS
+    (
+        *QUERY*
+    )
+and filter that way. 
+#
+
+
+
